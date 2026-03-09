@@ -17,12 +17,12 @@
                 },
                 {
                     "name": "Dash",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "80ef099e-3d34-4cee-8a43-c9f393303855",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
@@ -37,7 +37,7 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "5bf773de-6845-4941-ae84-d46354e11e5d",
+                    "id": "75ff12a5-124b-4273-92d6-b840b2b80991",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -47,8 +47,30 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "up",
+                    "id": "3d6aab71-2098-4c25-9106-c588eb3989e3",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "339fb48e-2060-4756-85ab-de4f3ce328b7",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "left",
-                    "id": "92921788-72da-4b44-89be-304cc282210d",
+                    "id": "c7ffc985-95e5-4ce2-9c33-a62c7554585d",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -59,7 +81,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "14c8b5c4-f5e4-4090-8a4e-da58e57f3fb1",
+                    "id": "67a51b00-a237-4862-8358-ffe3777a6194",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
