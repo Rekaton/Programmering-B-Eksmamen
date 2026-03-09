@@ -8,86 +8,59 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    [Header("Jord Tjek")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
-
     [Header("Dash")]
     public float dashSpeed = 20f;
     public float dashDuration = 0.15f;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
-    private bool isGrounded;
+
+    // State variabler
     private bool isDashing;
     private bool canDash = true;
+    private bool canJump = true;
     private float lastFacingDirection = 1f;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
-    {
-        // Gør intet, hvis vi dasher
-        if (groundCheck == null || isDashing) return;
-
-        // Tjekker om vi rammer jorden (og ikke os selv)
-        Collider2D hit = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        isGrounded = (hit != null && hit.gameObject != gameObject);
-
-        // Giver dash tilbage, når vi lander
-        if (isGrounded)
-        {
-            canDash = true;
-        }
-    }
-
-    void OnMove(InputValue value)
+    private void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
 
-        // Husker hvilken vej vi kigger
-        if (moveInput.x > 0) lastFacingDirection = 1f;
-        else if (moveInput.x < 0) lastFacingDirection = -1f;
-    }
-
-    void OnJump(InputValue value)
-    {
-        // Hop kun hvis vi er på jorden og ikke dasher
-        if (value.isPressed && isGrounded && !isDashing)
+        // Gemmer retningen (1 for højre, -1 for venstre), så vi kan dashe fra stilstand
+        if (moveInput.x != 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            isGrounded = false; // Forhindrer dobbelt-hop
+            lastFacingDirection = Mathf.Sign(moveInput.x);
         }
     }
 
-    void OnDash(InputValue value)
+    private void OnJump(InputValue value)
     {
-        // Dash kun hvis vi har lov og trykker på knappen
+        if (value.isPressed && canJump && !isDashing)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            canJump = false;
+        }
+    }
+
+    private void OnDash(InputValue value)
+    {
         if (value.isPressed && canDash && !isDashing)
         {
-            Vector2 dashDir = moveInput;
-
-            // Brug gemt retning hvis vi står stille
-            if (dashDir == Vector2.zero)
-            {
-                dashDir = new Vector2(lastFacingDirection, 0);
-            }
-            else
-            {
-                dashDir = dashDir.normalized; // Samme fart i alle retninger
-            }
+            // Sætter retningen kort og præcist. Hvis vi står stille, brug lastFacingDirection.
+            Vector2 dashDir = moveInput == Vector2.zero
+                ? new Vector2(lastFacingDirection, 0)
+                : moveInput.normalized;
 
             StartCoroutine(PerformDash(dashDir));
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        // Normal bevægelse (hvis vi ikke dasher)
         if (!isDashing)
         {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
@@ -97,18 +70,37 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator PerformDash(Vector2 direction)
     {
         isDashing = true;
-        canDash = false; // Brug vores dash
+        canDash = false; // Brugt med det samme
 
         float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0f; // Slå tyngdekraft fra
+        rb.gravityScale = 0f;
+        rb.linearVelocity = direction * dashSpeed;
 
-        rb.linearVelocity = direction * dashSpeed; // Flyv afsted
+        yield return new WaitForSeconds(dashDuration);
 
-        yield return new WaitForSeconds(dashDuration); // Vent
-
-        rb.linearVelocity = Vector2.zero; // Stop brat
-        rb.gravityScale = originalGravity; // Tyngdekraft på igen
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = originalGravity;
         isDashing = false;
     }
 
+    // --- JORD-TJEK MED TAGS ---
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Giver hop og dash tilbage, hvis vi rører "Ground", ikke dasher, og ikke flyver opad
+        if (collision.gameObject.CompareTag("Ground") && !isDashing && rb.linearVelocity.y <= 0.01f)
+        {
+            canJump = true;
+            canDash = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Fjerner hoppet i det sekund, vi forlader "Ground"
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            canJump = false;
+        }
+    }
 }
