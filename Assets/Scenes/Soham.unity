@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DashHaptics
   movementScript: {fileID: 321483526}
   sprite: {fileID: 321483523}
-  dashColor: {r: 0, g: 0, b: 1, a: 1}
+  dashColor: {r: 1, g: 0.728246, b: 0, a: 1}
 --- !u!1 &434432624
 GameObject:
   m_ObjectHideFlags: 0

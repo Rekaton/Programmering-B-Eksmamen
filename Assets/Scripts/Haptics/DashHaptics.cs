@@ -7,7 +7,7 @@ public class DashHaptics : MonoBehaviour
     public SpriteRenderer sprite;
 
     [Header("Farver")]
-    public Color dashColor = Color.blue; // Den blå farve til dash
+    public Color dashColor; // farve til dash
     private Color normalColor; // Den normale farve gemmes her
 
     private void Start()
