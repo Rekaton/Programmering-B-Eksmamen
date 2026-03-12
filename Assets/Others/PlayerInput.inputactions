@@ -17,9 +17,9 @@
                 },
                 {
                     "name": "Dash",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "80ef099e-3d34-4cee-8a43-c9f393303855",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -92,6 +92,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a77f4943-a4f3-4308-a930-d0f05a07eb74",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "10eb9cab-1d91-4fc3-9e1b-edd10b163373",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -103,8 +114,30 @@
                 },
                 {
                     "name": "",
+                    "id": "83c35500-2cfa-4013-8064-970b7044fc42",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3fe765d2-8fe5-4504-8701-0a12088a9db2",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea8bce15-9334-431a-826a-d98c0d88c0cd",
+                    "path": "<DualSenseGamepadHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
