@@ -8,6 +8,11 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;  // Fart på løb
     public float jumpForce = 10f; // Højde på hop
 
+    // Spillere trykker næsten altid hop for sent
+    // Det føles uretfærdigt at falde ned
+    // Coyote time fikser dette og gør styringen god
+    public float coyoteTime = 0.2f;
+
     [Header("Dash")]
     public float dashSpeed = 20f;      // Fart på dash
     public float dashDuration = 0.15f; // Længde på dash
@@ -18,27 +23,29 @@ public class PlayerMovement : MonoBehaviour
     // Spillerens tilstand lige nu
     public bool isDashing; // public for haptics
     private bool canDash;
-    private bool canJump;
-    private float lastFacingDirection = 1f; // 1 er højre og -1 er venstre
 
-    // Wall jump integration
-    private PlayerWallJump wallJump;
+    // Tæller ned når kanten forlades
+    private float coyoteTimeCounter;
+    private float lastFacingDirection = 1f; // 1 er højre og -1 er venstre
 
     private void Start()
     {
-        // Hent fysikken. Den skal bruges til at flytte spilleren.
+        // Hent fysik
         rb = GetComponent<Rigidbody2D>();
+    }
 
-        // Hent wall jump scriptet hvis det findes på samme GameObject.
-        wallJump = GetComponent<PlayerWallJump>();
+    private void Update()
+    {
+        // Tiden forsvinder lidt efter lidt
+        coyoteTimeCounter -= Time.deltaTime;
     }
 
     private void OnMove(InputValue value)
     {
-        // Gem spillerens input.
+        // Gem spillerens input
         moveInput = value.Get<Vector2>();
 
-        // Husk hvilken vej vi kigger. Det bruges til dash fra stilstand.
+        // Husk hvilken vej der kigges
         if (moveInput.x != 0)
         {
             lastFacingDirection = Mathf.Sign(moveInput.x);
@@ -47,61 +54,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue value)
     {
-        if (!value.isPressed || isDashing)
-        {
-            return;
-        }
+        if (!value.isPressed || isDashing) return;
 
-        // Giv wall jump første prioritet.
-        // Hvis et wall jump blev udført, stop her.
-        if (wallJump != null)
-        {
-            bool didWallJump = wallJump.TryWallJump();
-            if (didWallJump)
-            {
-                return;
-            }
-        }
-
-        // Tjek om vi må hoppe. Hvis ja så hop.
-        if (canJump)
+        // Tillad hoppet hvis tælleren ikke er nul
+        // Det er her spilleren reddes af coyote time
+        if (coyoteTimeCounter > 0f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            coyoteTimeCounter = 0f; // Slet tiden så der ikke dobbelthoppes
         }
     }
 
     private void OnDash(InputValue value)
     {
-        // Tjek om vi må dashe.
+        // Tjek om der må dashes
         if (value.isPressed && canDash && !isDashing)
         {
-            // Find retning. Står vi stille så brug den gemte retning.
-            Vector2 dashDir;
-            if (moveInput == Vector2.zero)
-            {
-                dashDir = new Vector2(lastFacingDirection, 0);
-            }
-            else
-            {
-                dashDir = moveInput.normalized;
-            }
+            // Find retning
+            // Brug den gemte hvis der stås stille
+            Vector2 dashDir = moveInput == Vector2.zero
+                ? new Vector2(lastFacingDirection, 0) : moveInput.normalized;
 
-            // Start selve dashet.
+            // Start selve dashet
             StartCoroutine(PerformDash(dashDir));
         }
     }
 
     private void FixedUpdate()
     {
-        // Tjek om wall jump styrer bevægelsen lige nu.
-        bool wallJumpActive = false;
-        if (wallJump != null)
-        {
-            wallJumpActive = wallJump.IsWallJumping;
-        }
-
-        // Gå normalt hvis vi ikke dasher og wall jump ikke er aktiv.
-        if (!isDashing && !wallJumpActive)
+        // Gå normalt hvis der ikke dashes
+        if (!isDashing)
         {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
         }
@@ -110,17 +92,17 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator PerformDash(Vector2 direction)
     {
         isDashing = true;
-        canDash = false; // Dash er nu brugt.
+        canDash = false; // Dash er nu brugt
 
-        // Sluk tyngdekraften. Flyv lige frem.
+        // Sluk tyngdekraften og flyv lige frem
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.linearVelocity = direction * dashSpeed;
 
-        // Vent imens vi dasher.
+        // Vent imens der dashes
         yield return new WaitForSeconds(dashDuration);
 
-        // Stop dash og tænd tyngdekraften igen.
+        // Stop dash og tænd tyngdekraften igen
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = originalGravity;
         isDashing = false;
@@ -128,30 +110,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        // Hvis vi rører jorden, så må vi gerne hoppe og dashe igen.
+        // Hvis jorden røres og der ikke dashes
         if (collision.gameObject.CompareTag("Ground") && !isDashing)
         {
-            // Wall jump tæller ikke som landing. WallJump scriptet styrer det selv.
-            bool isWallJumping = false;
-            if (wallJump != null)
-            {
-                isWallJumping = wallJump.IsWallJumping;
-            }
-
-            if (!isWallJumping)
-            {
-                canJump = true;
-                canDash = true;
-            }
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Hvis man forlader ground, så sæt jump til false.
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            canJump = false;
+            // Fyld tiden op mens jorden røres
+            // Så er der fuld tid til at hoppe bagefter
+            coyoteTimeCounter = coyoteTime;
+            canDash = true;
         }
     }
 }
