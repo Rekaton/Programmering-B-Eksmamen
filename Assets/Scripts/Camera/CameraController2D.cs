@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraController2D : MonoBehaviour
 {
@@ -16,6 +17,15 @@ public class CameraController2D : MonoBehaviour
     public float shakeMagnitude = 5f;
     private Vector3 originalPos;
     private float shakeTimeRemaining = 0f;
+    
+    private PlayerInput playerInput;
+    private InputAction shakeAction;
+
+    void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        shakeAction = playerInput.actions["TestButton"]; 
+    }
 
     void Update()
     {
@@ -39,11 +49,10 @@ public class CameraController2D : MonoBehaviour
         Vector3 targetPos = new Vector3(target.position.x + lookAheadX, target.position.y + yPositionMod, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (shakeAction.WasPressedThisFrame())
         {
-            ShakeCamera(shakeDuration,shakeMagnitude);
+            ShakeCamera(shakeDuration, shakeMagnitude);
         }
-
         if (shakeTimeRemaining > 0)
         {
             transform.position += (Vector3)Random.insideUnitCircle * shakeMagnitude;
