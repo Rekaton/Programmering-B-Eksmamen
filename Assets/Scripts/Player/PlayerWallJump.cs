@@ -14,6 +14,8 @@ public class PlayerWallJump : MonoBehaviour
     public float wallJumpForceY = 14f;
     public float wallJumpDuration = 0.25f;
 
+    public float wallCoyoteTime = 0.15f;
+
     [Header("Detection")]
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
@@ -30,8 +32,12 @@ public class PlayerWallJump : MonoBehaviour
     private PlayerMovement playerMovement;
 
     private int wallDirection;
+    private int lastWallDirection;
     private float wallTimer;
     private float wallJumpTimer;
+    private bool canSlide;
+
+    private float wallCoyoteCounter;
 
     private readonly Color colorNormal = Color.white;
     private readonly Color colorDanger = Color.red;
@@ -49,25 +55,38 @@ public class PlayerWallJump : MonoBehaviour
         {
             return;
         }
-
+        wallCoyoteCounter -= Time.deltaTime;
         CheckWall();
-        HandleWallSlide();
         HandleWallJumpTimer();
         UpdateColor();
     }
 
     public bool TryWallJump()
     {
-        if (!IsWallSliding)
+        bool canWallJump = IsWallSliding || wallCoyoteCounter > 0f;
+
+        if (!canWallJump)
         {
             return false;
         }
 
-        Vector2 jumpVelocity = new Vector2(-wallDirection * wallJumpForceX, wallJumpForceY);
+        int jumpDirection;
+        if (IsWallSliding)
+        {
+            jumpDirection = wallDirection;
+        }
+        else
+        {
+            jumpDirection = lastWallDirection;
+        }
+
+        Vector2 jumpVelocity = new Vector2(-jumpDirection * wallJumpForceX, wallJumpForceY);
         rb.linearVelocity = jumpVelocity;
 
         IsWallJumping = true;
         wallJumpTimer = wallJumpDuration;
+
+        wallCoyoteCounter = 0f;
 
         ResetWallState();
         return true;
@@ -103,11 +122,30 @@ public class PlayerWallJump : MonoBehaviour
 
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
 
-        bool canSlide = touchingWall && !isGrounded && !IsWallJumping && wallTimer < maxWallTime;
+        bool holdingTowardWall = false;
+        if (playerMovement != null)
+        {
+            bool hasInput = playerMovement.moveInput.x != 0f;
+            bool sameDirection = Mathf.Sign(playerMovement.moveInput.x) == Mathf.Sign(wallDirection);
+            holdingTowardWall = hasInput && sameDirection;
+        }
+
+        if (touchingWall && !isGrounded && !IsWallJumping && wallTimer < maxWallTime && rb.linearVelocity.y <= 0f && holdingTowardWall)
+        {
+            canSlide = true;
+        }
+        else
+        {
+            canSlide = false;
+        }
 
         if (canSlide)
         {
             IsWallSliding = true;
+
+            lastWallDirection = wallDirection;
+            wallCoyoteCounter = wallCoyoteTime;
+
             wallTimer += Time.deltaTime;
             rb.gravityScale = wallSlideGravity;
 
@@ -127,16 +165,18 @@ public class PlayerWallJump : MonoBehaviour
 
             if (isGrounded && !IsWallJumping)
             {
+                wallCoyoteCounter = 0f;
                 ResetWallState();
             }
         }
     }
 
-    void HandleWallSlide() { }
-
     void HandleWallJumpTimer()
     {
-        if (!IsWallJumping) return;
+        if (!IsWallJumping)
+        {
+            return;
+        }
 
         wallJumpTimer -= Time.deltaTime;
         if (wallJumpTimer <= 0f)

@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashDuration = 0.15f; // Længde på dash
 
     private Rigidbody2D rb;
-    private Vector2 moveInput;
+    public Vector2 moveInput;
 
     // Spillerens tilstand lige nu
     public bool isDashing; // public for haptics
@@ -26,12 +26,19 @@ public class PlayerMovement : MonoBehaviour
 
     // Tæller ned når kanten forlades
     private float coyoteTimeCounter;
+
     private float lastFacingDirection = 1f; // 1 er højre og -1 er venstre
+
+    // Wall jump integration
+    private PlayerWallJump wallJump;
 
     private void Start()
     {
         // Hent fysik
         rb = GetComponent<Rigidbody2D>();
+
+        // Hent wall jump scriptet hvis det findes på samme GameObject
+        wallJump = GetComponent<PlayerWallJump>();
     }
 
     private void Update()
@@ -54,7 +61,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue value)
     {
-        if (!value.isPressed || isDashing) return;
+        if (!value.isPressed || isDashing)
+        {
+            return;
+        }
+
+        // Giv wall jump første prioritet
+        // Hvis et wall jump blev udført, stop her
+        if (wallJump != null)
+        {
+            bool didWallJump = wallJump.TryWallJump();
+            if (didWallJump)
+            {
+                return;
+            }
+        }
 
         // Tillad hoppet hvis tælleren ikke er nul
         // Det er her spilleren reddes af coyote time
@@ -72,8 +93,15 @@ public class PlayerMovement : MonoBehaviour
         {
             // Find retning
             // Brug den gemte hvis der stås stille
-            Vector2 dashDir = moveInput == Vector2.zero
-                ? new Vector2(lastFacingDirection, 0) : moveInput.normalized;
+            Vector2 dashDir;
+            if (moveInput == Vector2.zero)
+            {
+                dashDir = new Vector2(lastFacingDirection, 0);
+            }
+            else
+            {
+                dashDir = moveInput.normalized;
+            }
 
             // Start selve dashet
             StartCoroutine(PerformDash(dashDir));
@@ -82,8 +110,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Gå normalt hvis der ikke dashes
-        if (!isDashing)
+        // Tjek om wall jump styrer bevægelsen lige nu
+        bool wallJumpActive = false;
+        if (wallJump != null)
+        {
+            wallJumpActive = wallJump.IsWallJumping;
+        }
+
+        // Gå normalt hvis der ikke dashes og wall jump ikke er aktiv
+        if (!isDashing && !wallJumpActive)
         {
             rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
         }
@@ -113,10 +148,21 @@ public class PlayerMovement : MonoBehaviour
         // Hvis jorden røres og der ikke dashes
         if (collision.gameObject.CompareTag("Ground") && !isDashing)
         {
-            // Fyld tiden op mens jorden røres
-            // Så er der fuld tid til at hoppe bagefter
-            coyoteTimeCounter = coyoteTime;
-            canDash = true;
+            // Wall jump tæller ikke som landing
+            // WallJump scriptet styrer det selv
+            bool isWallJumping = false;
+            if (wallJump != null)
+            {
+                isWallJumping = wallJump.IsWallJumping;
+            }
+
+            if (!isWallJumping)
+            {
+                // Fyld tiden op mens jorden røres
+                // Så er der fuld tid til at hoppe bagefter
+                coyoteTimeCounter = coyoteTime;
+                canDash = true;
+            }
         }
     }
 }
