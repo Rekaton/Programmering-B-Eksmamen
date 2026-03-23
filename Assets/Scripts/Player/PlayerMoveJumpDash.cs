@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMoveJumpDash : MonoBehaviour
 {
     [Header("Bevægelse")]
     public float moveSpeed = 5f;  // Fart på løb

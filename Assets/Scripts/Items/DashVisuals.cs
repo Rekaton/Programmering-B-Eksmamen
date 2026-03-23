@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DashVisuals : MonoBehaviour
+public class DashHaptics : MonoBehaviour
 {
     [Header("Referencer")]
     public PlayerMoveJumpDash movementScript;

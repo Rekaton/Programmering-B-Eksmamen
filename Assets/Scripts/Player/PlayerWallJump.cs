@@ -29,7 +29,7 @@ public class PlayerWallJump : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-    private PlayerMovement playerMovement;
+    private PlayerMoveJumpDash playerMovement;
 
     private int wallDirection;
     private int lastWallDirection;
@@ -46,7 +46,7 @@ public class PlayerWallJump : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerMoveJumpDash>();
     }
 
     void Update()
