@@ -9,13 +9,13 @@ public class PlayerMoveJumpDash : MonoBehaviour
     public float jumpForce = 10f; // Højde på hop
 
     // Spillere trykker næsten altid hop for sent
-    // Det føles uretfærdigt at falde ned
-    // Coyote time fikser dette og gør styringen god
+    // Coyote time fikser dette og gør styringen bedre og mere tilgivende
     public float coyoteTime = 0.2f;
 
     [Header("Dash")]
     public float dashSpeed = 20f;      // Fart på dash
     public float dashDuration = 0.15f; // Længde på dash
+    public float dashDeceleration = 40f; // Opbremsning efter dash i luften
 
     private Rigidbody2D rb;
     public Vector2 moveInput;
@@ -23,6 +23,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
     // Spillerens tilstand lige nu
     public bool isDashing; // public for haptics
     private bool canDash;
+    private bool isGrounded; // Tjekker om jorden røres for at stoppe glidning
 
     // Tæller ned når kanten forlades
     private float coyoteTimeCounter;
@@ -67,7 +68,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
         }
 
         // Giv wall jump første prioritet
-        // Hvis et wall jump blev udført, stop her
+        // Hvis et wall jump blev udført stop her
         if (wallJump != null)
         {
             bool didWallJump = wallJump.TryWallJump();
@@ -120,7 +121,30 @@ public class PlayerMoveJumpDash : MonoBehaviour
         // Gå normalt hvis der ikke dashes og wall jump ikke er aktiv
         if (!isDashing && !wallJumpActive)
         {
-            rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
+            // Find den fart der ønskes
+            float targetX = moveInput.x * moveSpeed;
+
+            // Hvis vi er på jorden sættes farten direkte
+            // Dette dræber momentum så man ikke glider på jorden
+            if (isGrounded)
+            {
+                rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
+            }
+            else
+            {
+                // Hvis vi er i luften og flyver hurtigere end normalt
+                // Så bremses farten blødt for at redde wall jump og dash momentum
+                if (Mathf.Abs(rb.linearVelocity.x) > Mathf.Abs(targetX))
+                {
+                    float newX = Mathf.MoveTowards(rb.linearVelocity.x, targetX, dashDeceleration * Time.fixedDeltaTime);
+                    rb.linearVelocity = new Vector2(newX, rb.linearVelocity.y);
+                }
+                else
+                {
+                    // Normal styring i luften sættes direkte
+                    rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
+                }
+            }
         }
     }
 
@@ -137,32 +161,48 @@ public class PlayerMoveJumpDash : MonoBehaviour
         // Vent imens der dashes
         yield return new WaitForSeconds(dashDuration);
 
-        // Stop dash og tænd tyngdekraften igen
-        rb.linearVelocity = Vector2.zero;
+        // Tænd tyngdekraften igen
         rb.gravityScale = originalGravity;
+
+        // Farten røres ikke mere her så momentum beholdes i luften
         isDashing = false;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        // Hvis jorden røres og der ikke dashes
-        if (collision.gameObject.CompareTag("Ground") && !isDashing)
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            // Wall jump tæller ikke som landing
-            // WallJump scriptet styrer det selv
-            bool isWallJumping = false;
-            if (wallJump != null)
-            {
-                isWallJumping = wallJump.IsWallJumping;
-            }
+            // Sæt til sand når jorden røres
+            isGrounded = true;
 
-            if (!isWallJumping)
+            // Hvis der ikke dashes
+            if (!isDashing)
             {
-                // Fyld tiden op mens jorden røres
-                // Så er der fuld tid til at hoppe bagefter
-                coyoteTimeCounter = coyoteTime;
-                canDash = true;
+                // Wall jump tæller ikke som landing
+                // WallJump scriptet styrer det selv
+                bool isWallJumping = false;
+                if (wallJump != null)
+                {
+                    isWallJumping = wallJump.IsWallJumping;
+                }
+
+                if (!isWallJumping)
+                {
+                    // Fyld tiden op mens jorden røres
+                    // Så er der fuld tid til at hoppe bagefter
+                    coyoteTimeCounter = coyoteTime;
+                    canDash = true;
+                }
             }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Sæt til falsk når jorden forlades
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
         }
     }
 }
