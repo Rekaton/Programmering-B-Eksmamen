@@ -623,11 +623,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DashHaptics
   movementScript: {fileID: 321483526}
-  wallJumpScript: {fileID: 0}
   healthScript: {fileID: 321483528}
   sprite: {fileID: 321483523}
   dashColor: {r: 0.9748427, g: 0.07663838, b: 0.8021486, a: 0.4627451}
-  wallSlideColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   checkpointActiveColor: {r: 0.09492397, g: 0, b: 1, a: 0.46666667}
   checkpointNormalColor: {r: 1, g: 1, b: 1, a: 0.46666667}
 --- !u!1 &375218665

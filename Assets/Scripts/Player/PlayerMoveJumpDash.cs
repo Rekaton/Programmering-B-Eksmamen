@@ -31,7 +31,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
     private float lastFacingDirection = 1f; // 1 er højre og -1 er venstre
 
     // Wall jump integration
-    private PlayerWallJump wallJump;
+    private PlayerWallJumpnSlide wallJump;
 
     private void Start()
     {
@@ -39,7 +39,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         // Hent wall jump scriptet hvis det findes på samme GameObject
-        wallJump = GetComponent<PlayerWallJump>();
+        wallJump = GetComponent<PlayerWallJumpnSlide>();
     }
 
     private void Update()
@@ -90,7 +90,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
     private void OnDash(InputValue value)
     {
         // Tjek om der må dashes
-        if (value.isPressed && canDash && !isDashing)
+        if (canDash && !isDashing)
         {
             // Find retning
             // Brug den gemte hvis der stås stille

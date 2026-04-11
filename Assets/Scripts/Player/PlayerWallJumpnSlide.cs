@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
-public class PlayerWallJump : MonoBehaviour
+public class PlayerWallJumpnSlide : MonoBehaviour
 {
     [Header("Wall Slide")]
     public float wallSlideGravity = 1.5f;
@@ -28,7 +27,6 @@ public class PlayerWallJump : MonoBehaviour
     public bool IsWallSliding;
 
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
     private PlayerMoveJumpDash playerMovement;
 
     private int wallDirection;
@@ -39,13 +37,9 @@ public class PlayerWallJump : MonoBehaviour
 
     private float wallCoyoteCounter;
 
-    private readonly Color colorNormal = Color.white;
-    private readonly Color colorDanger = Color.red;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMoveJumpDash>();
     }
 
@@ -58,7 +52,6 @@ public class PlayerWallJump : MonoBehaviour
         wallCoyoteCounter -= Time.deltaTime;
         CheckWall();
         HandleWallJumpTimer();
-        UpdateColor();
     }
 
     public bool TryWallJump()
@@ -186,24 +179,10 @@ public class PlayerWallJump : MonoBehaviour
         }
     }
 
-    void UpdateColor()
-    {
-        if (IsWallSliding && maxWallTime > 0f)
-        {
-            float t = Mathf.Clamp01(wallTimer / maxWallTime);
-            sr.color = Color.Lerp(colorNormal, colorDanger, t);
-        }
-        else
-        {
-            sr.color = colorNormal;
-        }
-    }
-
     void ResetWallState()
     {
         wallTimer = 0f;
         IsWallSliding = false;
-        sr.color = colorNormal;
         rb.gravityScale = normalGravity;
     }
 
