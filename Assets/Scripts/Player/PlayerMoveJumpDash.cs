@@ -115,7 +115,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
         bool wallJumpActive = false;
         if (wallJump != null)
         {
-            wallJumpActive = wallJump.IsWallJumping;
+            wallJumpActive = wallJump.isWallJumping;
         }
 
         // Gå normalt hvis der ikke dashes og wall jump ikke er aktiv
@@ -183,7 +183,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
                 bool isWallJumping = false;
                 if (wallJump != null)
                 {
-                    isWallJumping = wallJump.IsWallJumping;
+                    isWallJumping = wallJump.isWallJumping;
                 }
 
                 if (!isWallJumping)

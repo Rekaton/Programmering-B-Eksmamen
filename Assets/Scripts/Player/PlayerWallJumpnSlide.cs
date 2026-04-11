@@ -23,8 +23,8 @@ public class PlayerWallJumpnSlide : MonoBehaviour
     public LayerMask wallLayer;
     public LayerMask groundLayer;
 
-    public bool IsWallJumping;
-    public bool IsWallSliding;
+    public bool isWallJumping;
+    public bool isWallSliding;
 
     private Rigidbody2D rb;
     private PlayerMoveJumpDash playerMovement;
@@ -56,7 +56,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
 
     public bool TryWallJump()
     {
-        bool canWallJump = IsWallSliding || wallCoyoteCounter > 0f;
+        bool canWallJump = isWallSliding || wallCoyoteCounter > 0f;
 
         if (!canWallJump)
         {
@@ -64,7 +64,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
         }
 
         int jumpDirection;
-        if (IsWallSliding)
+        if (isWallSliding)
         {
             jumpDirection = wallDirection;
         }
@@ -76,7 +76,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
         Vector2 jumpVelocity = new Vector2(-jumpDirection * wallJumpForceX, wallJumpForceY);
         rb.linearVelocity = jumpVelocity;
 
-        IsWallJumping = true;
+        isWallJumping = true;
         wallJumpTimer = wallJumpDuration;
 
         wallCoyoteCounter = 0f;
@@ -123,7 +123,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
             holdingTowardWall = hasInput && sameDirection;
         }
 
-        if (touchingWall && !isGrounded && !IsWallJumping && wallTimer < maxWallTime && rb.linearVelocity.y <= 0f && holdingTowardWall)
+        if (touchingWall && !isGrounded && !isWallJumping && wallTimer < maxWallTime && rb.linearVelocity.y <= 0f && holdingTowardWall)
         {
             canSlide = true;
         }
@@ -134,7 +134,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
 
         if (canSlide)
         {
-            IsWallSliding = true;
+            isWallSliding = true;
 
             lastWallDirection = wallDirection;
             wallCoyoteCounter = wallCoyoteTime;
@@ -149,14 +149,14 @@ public class PlayerWallJumpnSlide : MonoBehaviour
         }
         else
         {
-            IsWallSliding = false;
+            isWallSliding = false;
 
-            if (!IsWallJumping)
+            if (!isWallJumping)
             {
                 rb.gravityScale = normalGravity;
             }
 
-            if (isGrounded && !IsWallJumping)
+            if (isGrounded && !isWallJumping)
             {
                 wallCoyoteCounter = 0f;
                 ResetWallState();
@@ -166,7 +166,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
 
     void HandleWallJumpTimer()
     {
-        if (!IsWallJumping)
+        if (!isWallJumping)
         {
             return;
         }
@@ -174,7 +174,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
         wallJumpTimer -= Time.deltaTime;
         if (wallJumpTimer <= 0f)
         {
-            IsWallJumping = false;
+            isWallJumping = false;
             rb.gravityScale = normalGravity;
         }
     }
@@ -182,7 +182,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
     void ResetWallState()
     {
         wallTimer = 0f;
-        IsWallSliding = false;
+        isWallSliding = false;
         rb.gravityScale = normalGravity;
     }
 

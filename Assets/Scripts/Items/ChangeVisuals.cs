@@ -30,12 +30,12 @@ public class ChangeVisuals : MonoBehaviour
         {
             sprite.color = dashColor;
         }
-        else if (wallJumpScript != null && wallJumpScript.IsWallSliding)
+        else if (wallJumpScript != null && wallJumpScript.isWallSliding)
         {
-            // 1. Regn ud hvor lang tid vi har hængt på væggen (fra 0.0 til 1.0)
+            // Regn ud hvor lang tid vi har hængt på væggen (fra 0.0 til 1.0)
             float t = Mathf.Clamp01(wallJumpScript.wallTimer / wallJumpScript.maxWallTime);
 
-            // 2. Blend farverne. Den starter som wallSlideColor og glider over i normalColor.
+            // Blend farverne. Den starter som wallSlideColor og glider over i normalColor.
             // Når 't' er 1 (tiden er gået), er karakteren helt tilbage til sin normale farve.
             sprite.color = Color.Lerp(wallSlideColor, normalColor, t);
         }
