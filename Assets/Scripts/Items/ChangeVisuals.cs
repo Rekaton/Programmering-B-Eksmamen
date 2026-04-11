@@ -37,7 +37,7 @@ public class ChangeVisuals : MonoBehaviour
 
             // Blend farverne. Den starter som wallSlideColor og glider over i normalColor.
             // Når 't' er 1 (tiden er gået), er karakteren helt tilbage til sin normale farve.
-            sprite.color = Color.Lerp(wallSlideColor, normalColor, t);
+            sprite.color = Color.Lerp(normalColor, wallSlideColor, t);
         }
         else
         {
