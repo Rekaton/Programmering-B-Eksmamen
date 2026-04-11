@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DashHaptics
   movementScript: {fileID: 321483526}
-  wallJumpScript: {fileID: 0}
+  wallJumpScript: {fileID: 321483531}
   healthScript: {fileID: 321483528}
   sprite: {fileID: 321483523}
   dashColor: {r: 0.9748427, g: 0.07663838, b: 0.8021486, a: 0.4627451}

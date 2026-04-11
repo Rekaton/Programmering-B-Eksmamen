@@ -4,13 +4,13 @@ public class ChangeVisuals : MonoBehaviour
 {
     [Header("Referencer")]
     public PlayerMoveJumpDash movementScript;
-    public PlayerWallJumpnSlide wallJumpScript; // NY: Reference til wall slide scriptet
+    public PlayerWallJumpnSlide wallJumpScript;
     public PlayerHealthDamageRespawn healthScript;
     public SpriteRenderer sprite;
 
     [Header("Farver")]
     public Color dashColor;
-    public Color wallSlideColor = Color.cyan; // NY: Farve til wall slide (husk alpha til 255)
+    public Color wallSlideColor = Color.cyan;
     public Color checkpointActiveColor;
     public Color checkpointNormalColor;
 
@@ -19,24 +19,30 @@ public class ChangeVisuals : MonoBehaviour
 
     private void Start()
     {
+        // Vi gemmer spillerens normale farve (ofte bare helt hvid)
         normalColor = sprite.color;
     }
 
     private void Update()
     {
         // --- VISUALS FOR SPILLEREN ---
-        // Vi prioriterer dash højest. Hvis der ikke dashes, tjekker vi for wall slide.
         if (movementScript.isDashing)
         {
             sprite.color = dashColor;
         }
         else if (wallJumpScript != null && wallJumpScript.IsWallSliding)
         {
-            sprite.color = wallSlideColor; // Skift til wall slide farve
+            // 1. Regn ud hvor lang tid vi har hængt på væggen (fra 0.0 til 1.0)
+            float t = Mathf.Clamp01(wallJumpScript.wallTimer / wallJumpScript.maxWallTime);
+
+            // 2. Blend farverne. Den starter som wallSlideColor og glider over i normalColor.
+            // Når 't' er 1 (tiden er gået), er karakteren helt tilbage til sin normale farve.
+            sprite.color = Color.Lerp(wallSlideColor, normalColor, t);
         }
         else
         {
-            sprite.color = normalColor; // Normal farve
+            // Sørg for at farven altid er normal, når vi ikke bruger evner
+            sprite.color = normalColor;
         }
 
         // --- CHECKPOINT VISUALS ---

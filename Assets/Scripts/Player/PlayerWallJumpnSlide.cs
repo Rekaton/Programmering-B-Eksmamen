@@ -31,7 +31,7 @@ public class PlayerWallJumpnSlide : MonoBehaviour
 
     private int wallDirection;
     private int lastWallDirection;
-    private float wallTimer;
+    public float wallTimer;
     private float wallJumpTimer;
     private bool canSlide;
 
