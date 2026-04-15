@@ -40,6 +40,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
         if (moveInput.x != 0)
         {
             lastFacingDirection = Mathf.Sign(moveInput.x);
+            transform.localScale = new Vector3(lastFacingDirection, transform.localScale.y, transform.localScale.z);
         }
     }
     private void OnJump(InputValue value)
