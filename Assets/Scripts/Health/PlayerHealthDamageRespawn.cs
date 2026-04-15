@@ -69,7 +69,7 @@ public class PlayerHealthDamageRespawn : MonoBehaviour
         }
     }
 
-    public void Respawn()
+    private void Respawn()
     {
         Debug.Log("Player dead Respawns at checkpoint");
 
