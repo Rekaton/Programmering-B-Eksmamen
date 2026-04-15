@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 796547fc6bdef07b089c16b9484e1e2c
+=======
+guid: b231553de66ddb34e9a372074f970215
+>>>>>>> parent of 4655814 (Revert "Merge branch 'main' of https://github.com/Rekaton/Programmering-B-Eksmamen")
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
