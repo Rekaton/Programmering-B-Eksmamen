@@ -22,6 +22,12 @@ public class FinishLine : MonoBehaviour
                 levelCompletedUI.SetActive(true);
                 Time.timeScale = 0f;
                 PauseMenu.GameIsPaused = true;
+
+                // Fortæl vores Singleton-timer, at den skal overføre teksten
+                if (GameTimer.Instance != null)
+                {
+                    GameTimer.Instance.ShowFinalTime();
+                }
             }
         }
     }
