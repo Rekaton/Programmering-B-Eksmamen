@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97e92681-aae0-45bc-bbde-0a7c60187384" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Programmering-B-Eksmamen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Programmering-B-Eksmamen/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Bane 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Bane 1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/AB_Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/AB_Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/ChangeVisuals.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/ChangeVisuals.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tilemaps/New Tile Palette.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tilemaps/New Tile Palette.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +15,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Camera/CameraController2D.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/AB_Item.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/BouncePad.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/CrumblingPlatform.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -102,9 +93,6 @@
       <updated>1774269160548</updated>
       <workItem from="1774269160556" duration="2185000" />
       <workItem from="1774271889241" duration="678000" />
-      <workItem from="1774517698200" duration="99000" />
-      <workItem from="1775924106708" duration="2059000" />
-      <workItem from="1776081495942" duration="2697000" />
     </task>
     <servers />
   </component>
