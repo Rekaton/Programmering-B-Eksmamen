@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 8416667372414233001}
   - component: {fileID: 8632651008265524361}
   - component: {fileID: 3840538938361377137}
-  - component: {fileID: 7131194165179446852}
   - component: {fileID: 2949522108396354735}
   m_Layer: 5
   m_Name: Canvas for levels 1
@@ -419,19 +418,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuUI: {fileID: 6357285410316689171}
   playerHealth: {fileID: 0}
---- !u!114 &7131194165179446852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251060389359039193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37dced6b7d4fb4408ee8a969137944d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FinishLine
-  levelCompletedUI: {fileID: 7838430367753690246}
 --- !u!114 &2949522108396354735
 MonoBehaviour:
   m_ObjectHideFlags: 0
