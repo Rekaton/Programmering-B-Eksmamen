@@ -87,9 +87,24 @@ public class PlayerWallJumpnSlide : MonoBehaviour
 
     void CheckWall()
     {
-        bool leftWall = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, wallLayer);
-        bool rightWall = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, wallLayer);
+        bool rawLeft = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, wallLayer);
+        bool rawRight = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, wallLayer);
 
+        bool flipped = transform.localScale.x < 0;
+        bool leftWall;
+        bool rightWall;
+
+        if (flipped)
+        {
+            leftWall = rawRight;
+            rightWall = rawLeft;
+        }
+        else
+        {
+            leftWall = rawLeft;
+            rightWall = rawRight;
+        }
+        
         bool touchingWall;
         if (leftWall || rightWall)
         {
