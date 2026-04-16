@@ -23,12 +23,14 @@ public class FinishLine : MonoBehaviour
                 Time.timeScale = 0f;
                 PauseMenu.GameIsPaused = true;
 
-                // Fortæl vores Singleton-timer, at den skal overføre teksten
                 if (GameTimer.Instance != null)
                 {
                     GameTimer.Instance.ShowFinalTime();
                 }
             }
         }
+        if (GameTimer.Instance != null) GameTimer.Instance.ShowFinalTime();
+
+        if (DeathCounter.Instance != null) DeathCounter.Instance.ShowFinalDeaths();
     }
 }

@@ -3956,10 +3956,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas for levels 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3180543096271278840, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180543096271278840, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -91
+      objectReference: {fileID: 0}
     - target: {fileID: 3840538938361377137, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 460546558}
+    - target: {fileID: 4461794351775854326, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -320
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053669910177979798, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -134.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316227095063491274, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_margin.w
+      value: -2.4160004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316227095063491274, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_margin.y
+      value: -2.725891
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316227095063491274, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316227095063491274, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316227095063491274, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885311988416143906, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_margin.w
+      value: 29.349884
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885311988416143906, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885311988416143906, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885311988416143906, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861069683365995271, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861069683365995271, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

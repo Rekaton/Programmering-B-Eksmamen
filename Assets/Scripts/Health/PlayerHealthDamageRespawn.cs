@@ -81,5 +81,10 @@ public class PlayerHealthDamageRespawn : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
         }
+        if (DeathCounter.Instance != null)
+        {
+            DeathCounter.Instance.AddDeath();
+        }
     }
+
 }
