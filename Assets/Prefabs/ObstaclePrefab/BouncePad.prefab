@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2431350076203304888}
   - component: {fileID: 3553987079093047924}
   - component: {fileID: 7455769376734508974}
+  - component: {fileID: -4214756141751522724}
   m_Layer: 0
   m_Name: BouncePad
   m_TagString: Untagged
@@ -143,3 +144,16 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: -0.020833334}
   m_UseDelaunayMesh: 1
+--- !u!114 &-4214756141751522724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6605454558110915020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6807b1d5cea4a27cfbb9322dc0e06f00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BouncePad
+  bounceForce: 15

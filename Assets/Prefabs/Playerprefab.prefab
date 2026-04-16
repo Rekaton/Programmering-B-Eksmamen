@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 4
-  jumpForce: 13
+  jumpForce: 8
   coyoteTime: 0.2
   dashSpeed: 10
   dashDuration: 0.1
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f60940046a9ea4abd41a53b73317bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 3
+  maxHealth: 10000
   healthSlider: {fileID: 0}
   currentCheckpoint: {fileID: 0}
 --- !u!114 &5187489683702408031
@@ -701,10 +701,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallJump
   wallSlideGravity: 1.5
-  normalGravity: 5
+  normalGravity: 3
   maxWallTime: 1.5
-  wallJumpForceX: 10
-  wallJumpForceY: 14
+  wallJumpForceX: 6
+  wallJumpForceY: 8
   wallJumpDuration: 0.25
   wallCoyoteTime: 0.15
   wallCheckLeft: {fileID: 2517378672540746554}
@@ -1398,7 +1398,7 @@ Transform:
   m_GameObject: {fileID: 6408567571008858918}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.335, y: 0.43099996, z: 0}
+  m_LocalPosition: {x: 0.335, y: 0.43099996, z: -0.1044}
   m_LocalScale: {x: 0.099999994, y: 0.72, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
