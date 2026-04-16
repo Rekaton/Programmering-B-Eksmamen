@@ -424,7 +424,7 @@ MonoBehaviour:
   targetRb: {fileID: 3358275364986772440}
   lookAheadDistance: 3
   smoothTime: 0.5
-  yPositionMod: 2
+  yPositionMod: 1
   shakeDuration: 0.25
   shakeMagnitude: 0.2
 --- !u!114 &5349719378291644633
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f60940046a9ea4abd41a53b73317bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 10000
+  maxHealth: 1
   healthSlider: {fileID: 0}
   currentCheckpoint: {fileID: 0}
 --- !u!114 &5187489683702408031
@@ -1264,7 +1264,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4653, y: 0.4439, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1209821243673700335}
@@ -1304,7 +1304,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
