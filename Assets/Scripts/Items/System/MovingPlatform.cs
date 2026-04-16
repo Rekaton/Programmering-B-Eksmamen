@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class MovingPlatform : Platform
 {
     public List<Vector2> points;
@@ -9,72 +10,79 @@ public class MovingPlatform : Platform
     private int currentIndex = 0;
     private bool movingForward = true;
 
-    private Vector2 previousPosition;
-    private Transform carriedPlayer;
+    private Rigidbody2D rb;
+    private Rigidbody2D carriedPlayerRb;
 
-    void Start()
+    void Awake()
     {
-        previousPosition = transform.position;
+        rb = GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (points.Count == 0) return;
 
-        Transform t = transform;
+        Vector2 current = rb.position;
         Vector2 target = points[currentIndex];
+        Vector2 next = Vector2.MoveTowards(current, target, speed * Time.fixedDeltaTime);
 
-        t.position = Vector2.MoveTowards(t.position, target, speed * Time.deltaTime);
-        Vector2 delta = (Vector2)t.position - previousPosition;
-        if (carriedPlayer != null && delta != Vector2.zero)
+        rb.MovePosition(next);
+        
+        if (Vector2.Distance(next, target) < 0.01f)
         {
-            carriedPlayer.position += (Vector3)delta;
+            AdvanceWaypoint();
         }
-        previousPosition = t.position;
+    }
 
-        if (Vector2.Distance(t.position, target) < 0.1f)
+    private void AdvanceWaypoint()
+    {
+        if (movingForward)
         {
-            if (movingForward)
+            currentIndex++;
+            if (currentIndex >= points.Count)
             {
-                currentIndex++;
-                if (currentIndex >= points.Count)
-                {
-                    currentIndex = points.Count - 2;
-                    movingForward = false;
-                }
+                currentIndex = points.Count - 2;
+                movingForward = false;
             }
-            else
+        }
+        else
+        {
+            currentIndex--;
+            if (currentIndex < 0)
             {
-                currentIndex--;
-                if (currentIndex < 0)
-                {
-                    currentIndex = 1;
-                    movingForward = true;
-                }
+                currentIndex = 1;
+                movingForward = true;
             }
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    protected override void OnCollisionEnter2D(Collision2D col)
     {
         if (IsPlayerLandingOnTop(col))
-            carriedPlayer = col.transform;
+        {
+            carriedPlayerRb = col.rigidbody;
+            carriedPlayerRb.transform.SetParent(transform);
+        }
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    protected void OnCollisionExit2D(Collision2D col)
     {
-        if (col.transform == carriedPlayer)
-            carriedPlayer = null;
+        if (col.rigidbody == carriedPlayerRb)
+        {
+            carriedPlayerRb.transform.SetParent(null);
+            carriedPlayerRb = null;
+        }
     }
 
-    // Only carry the player when they're on top — not when hitting the sides or bottom
     private bool IsPlayerLandingOnTop(Collision2D col)
     {
         if (!col.gameObject.CompareTag("Player")) return false;
 
         foreach (ContactPoint2D contact in col.contacts)
         {
-            if (contact.normal.y < -0.5f) // Normal points down → player is above
+            if (contact.normal.y > 0.5f)
                 return true;
         }
         return false;
