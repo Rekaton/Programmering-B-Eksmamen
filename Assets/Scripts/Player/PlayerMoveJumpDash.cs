@@ -21,6 +21,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
     private bool isGrounded;
     private float coyoteTimeCounter;
     private float lastFacingDirection = 1f;
+    private Rigidbody2D currentPlatform;
 
     private PlayerWallJumpnSlide wallJump;
 
@@ -101,15 +102,17 @@ public class PlayerMoveJumpDash : MonoBehaviour
 
         if (!isDashing && !wallJumpActive)
         {
-            float targetX = moveInput.x * moveSpeed;
-            
+            float platformVelocityX = 0f;
+            if (isGrounded && currentPlatform != null)
+            {
+                platformVelocityX = currentPlatform.linearVelocity.x;
+            }
+
+            float targetX = (moveInput.x * moveSpeed) + platformVelocityX;
 
             if (isGrounded)
             {
-                if (moveInput.x != 0)
-                {
-                    rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
-                }
+                rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
             }
             else
             {
@@ -141,9 +144,14 @@ public class PlayerMoveJumpDash : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("MovingPlatform"))
         {
             isGrounded = true;
+
+            if (collision.gameObject.CompareTag("MovingPlatform"))
+            {
+                currentPlatform = collision.rigidbody;
+            }
 
             if (!isDashing)
             {
@@ -163,9 +171,15 @@ public class PlayerMoveJumpDash : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("MovingPlatform"))
         {
             isGrounded = false;
+        }
+
+        // Fjern referencen, når vi hopper af platformen
+        if (collision.gameObject.CompareTag("MovingPlatform"))
+        {
+            currentPlatform = null;
         }
     }
 }
