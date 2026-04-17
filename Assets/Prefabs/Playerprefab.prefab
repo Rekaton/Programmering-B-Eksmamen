@@ -424,7 +424,7 @@ MonoBehaviour:
   targetRb: {fileID: 3358275364986772440}
   lookAheadDistance: 3
   smoothTime: 0.5
-  yPositionMod: 1
+  yPositionMod: 0.5
   shakeDuration: 0.25
   shakeMagnitude: 0.2
 --- !u!114 &5349719378291644633
@@ -668,6 +668,9 @@ MonoBehaviour:
   moveSpeed: 4
   jumpForce: 8
   coyoteTime: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   dashSpeed: 10
   dashDuration: 0.1
   dashDeceleration: 10

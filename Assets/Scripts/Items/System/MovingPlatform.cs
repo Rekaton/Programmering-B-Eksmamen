@@ -1,40 +1,53 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : Platform
 {
     public List<Vector2> points = new List<Vector2>();
-    public float speed = 2f;
-    private int currentIndex = 0;
+    public float moveSpeed = 2f;
 
-    private Rigidbody2D rb;
+    private int currentIndex = 0;
+    private int direction = 1;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        if (points.Count > 0)
+            transform.position = points[0];
+    }
 
-        rb.bodyType = RigidbodyType2D.Kinematic;
+    void Update()
+    {
+        if (points.Count < 2) return;
 
-        if (points.Count == 0)
+        Vector2 nextPosition = points[currentIndex];
+
+        transform.position = Vector2.MoveTowards(transform.position, nextPosition, moveSpeed * Time.deltaTime);
+
+        if ((Vector2)transform.position == nextPosition)
         {
-            Debug.LogWarning("Du mangler at tilf�je punkter til MovingPlatform!");
+            if (currentIndex == points.Count - 1)
+                direction = -1;
+            else if (currentIndex == 0)
+                direction = 1;
+
+            currentIndex += direction;
         }
     }
 
-    void FixedUpdate()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (points.Count == 0) return;
-
-        Vector2 target = points[currentIndex];
-
-        Vector2 direction = (target - rb.position).normalized;
-
-        rb.linearVelocity = direction * speed;
-
-        if (Vector2.Distance(rb.position, target) < 0.1f)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            currentIndex = (currentIndex + 1) % points.Count;
+            collision.gameObject.transform.parent = transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
         }
     }
 }

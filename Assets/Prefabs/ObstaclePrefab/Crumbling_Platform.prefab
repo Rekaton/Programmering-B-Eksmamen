@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 345221640120822804}
   - component: {fileID: 2999464130533898466}
   - component: {fileID: 8622358935227517545}
+  - component: {fileID: -5379851533876641262}
   m_Layer: 3
   m_Name: Crumbling_Platform
   m_TagString: Ground
@@ -159,3 +160,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrumblingPlatform
   delay: 1
+  respawnDelay: 3
+--- !u!251 &-5379851533876641262
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305148482849301015}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

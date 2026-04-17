@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 345221640120822804}
   - component: {fileID: 258927582397303464}
   - component: {fileID: 3047575308197992973}
+  - component: {fileID: 1360646413858761438}
   m_Layer: 3
   m_Name: Platform
   m_TagString: Ground
@@ -158,3 +159,22 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.27335012}
       - {x: 0.46173206, y: -0.224886}
   m_UseDelaunayMesh: 1
+--- !u!251 &1360646413858761438
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305148482849301015}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7654462840321027706}
   - component: {fileID: 499038733497425257}
   - component: {fileID: 3278831242716265274}
+  - component: {fileID: -5924904795463583304}
   m_Layer: 3
   m_Name: Moving_Platform
   m_TagString: MovingPlatform
@@ -183,3 +184,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!251 &-5924904795463583304
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305148482849301015}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
