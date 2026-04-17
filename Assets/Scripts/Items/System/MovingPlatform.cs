@@ -18,7 +18,7 @@ public class MovingPlatform : MonoBehaviour
 
         if (points.Count == 0)
         {
-            Debug.LogWarning("Du mangler at tilføje punkter til MovingPlatform!");
+            Debug.LogWarning("Du mangler at tilfï¿½je punkter til MovingPlatform!");
         }
     }
 
