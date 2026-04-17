@@ -146,25 +146,29 @@ public class PlayerMoveJumpDash : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("MovingPlatform"))
         {
-            isGrounded = true;
 
-            if (collision.gameObject.CompareTag("MovingPlatform"))
+            if (rb.linearVelocity.y <= 0.1f)
             {
-                currentPlatform = collision.rigidbody;
-            }
+                isGrounded = true;
 
-            if (!isDashing)
-            {
-                bool isWallJumping = false;
-                if (wallJump != null)
+                if (collision.gameObject.CompareTag("MovingPlatform"))
                 {
-                    isWallJumping = wallJump.isWallJumping;
+                    currentPlatform = collision.rigidbody;
                 }
 
-                if (!isWallJumping)
+                if (!isDashing)
                 {
-                    coyoteTimeCounter = coyoteTime;
-                    canDash = true;
+                    bool isWallJumping = false;
+                    if (wallJump != null)
+                    {
+                        isWallJumping = wallJump.isWallJumping;
+                    }
+
+                    if (!isWallJumping)
+                    {
+                        coyoteTimeCounter = coyoteTime;
+                        canDash = true;
+                    }
                 }
             }
         }
