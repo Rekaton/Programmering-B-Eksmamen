@@ -102,10 +102,14 @@ public class PlayerMoveJumpDash : MonoBehaviour
         if (!isDashing && !wallJumpActive)
         {
             float targetX = moveInput.x * moveSpeed;
+            
 
             if (isGrounded)
             {
-                rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
+                if (moveInput.x != 0)
+                {
+                    rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
+                }
             }
             else
             {
