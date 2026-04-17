@@ -4703,6 +4703,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
   m_PrefabInstance: {fileID: 890220164}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &937974349
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1728255576}
+    m_Modifications:
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751287332714908868, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+      propertyPath: m_Name
+      value: Spikes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+--- !u!4 &937974350 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3481044446286184139, guid: 316d48d276c6b75dd8cf94c51750fbff, type: 3}
+  m_PrefabInstance: {fileID: 937974349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &961520967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7617,11 +7679,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 999108844374564897, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: "Bev\xE6gelse: A og D eller left joystick\nHop: Space eller cross\nDe
-        gule box giver mere info"
-      objectReference: {fileID: 0}
-    - target: {fileID: 999108844374564897, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
       value: 0.21960786
       objectReference: {fileID: 0}
@@ -7642,12 +7699,6 @@ PrefabInstance:
       value: Canvas for levels 1
       objectReference: {fileID: 0}
     - target: {fileID: 2028941268974905746, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: "Farvekordineret platform: For at f\xE5 adgang til de gennemsigtige
-        platforms, skal man r\xF8r de firekanter som matcher med dens farve.\nDe
-        gule box giver mere info"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2028941268974905746, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
       value: 0.21960786
       objectReference: {fileID: 0}
@@ -7662,11 +7713,6 @@ PrefabInstance:
     - target: {fileID: 2028941268974905746, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4281874488
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619555587093971179, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: "Wall Jump: Hop mod en v\xE6g og trykke hop igen\nWall Slide: Hold din
-        karakter op mod v\xE6gen\nDe gule box giver mere info"
       objectReference: {fileID: 0}
     - target: {fileID: 2619555587093971179, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
@@ -7691,11 +7737,6 @@ PrefabInstance:
     - target: {fileID: 2920938640670861434, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968983208726039348, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: "Bounce Pads: Giver spilleren en trampolin agtig effekt. \nDe gule box
-        giver mere info"
       objectReference: {fileID: 0}
     - target: {fileID: 2968983208726039348, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
@@ -7746,12 +7787,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7307803548725087297, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: 'Dash: Left shift eller square
-
-        De gule box giver mere info'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7307803548725087297, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
       value: 0.21960786
       objectReference: {fileID: 0}
@@ -7790,11 +7825,6 @@ PrefabInstance:
     - target: {fileID: 7861069683365995271, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866583297809257778, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
-      propertyPath: m_text
-      value: "Crumbling platforms: Platformen foran er bliver opl\xF8st efter lidt
-        tid efter du r\xF8rer den.\nDe gule box giver mere info"
       objectReference: {fileID: 0}
     - target: {fileID: 7866583297809257778, guid: 245b34965779ec74496bae949c35fb5f, type: 3}
       propertyPath: m_fontColor.b
@@ -8954,6 +8984,7 @@ Transform:
   - {fileID: 2134773354}
   - {fileID: 1354711130}
   - {fileID: 388874540}
+  - {fileID: 937974350}
   - {fileID: 1270649438}
   - {fileID: 2041044546}
   - {fileID: 333869172}
