@@ -1274,7 +1274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6757456524417026106, guid: 8d1f79e76b0f47089b33d544126c12b8, type: 3}
       propertyPath: yPositionMod
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9039597452793063246, guid: 8d1f79e76b0f47089b33d544126c12b8, type: 3}
       propertyPath: maxHealth

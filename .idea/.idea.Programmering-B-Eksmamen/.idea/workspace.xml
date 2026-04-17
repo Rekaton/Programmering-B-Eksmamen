@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="97e92681-aae0-45bc-bbde-0a7c60187384" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Programmering-B-Eksmamen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Programmering-B-Eksmamen/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Nature_pixel_art_assets/palette/Nature_environment_01.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Nature_pixel_art_assets/palette/Nature_environment_01.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Playerprefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Playerprefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level3.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveJumpDash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMoveJumpDash.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerWallJumpnSlide.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerWallJumpnSlide.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/System/MovingPlatform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/System/MovingPlatform.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +103,7 @@
       <workItem from="1775924106708" duration="2059000" />
       <workItem from="1776081495942" duration="2697000" />
       <workItem from="1776291096364" duration="1659000" />
+      <workItem from="1776382273111" duration="1690000" />
     </task>
     <servers />
   </component>

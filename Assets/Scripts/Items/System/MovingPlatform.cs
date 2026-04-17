@@ -1,90 +1,52 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class MovingPlatform : Platform
 {
-    public List<Vector2> points;
+    public List<Vector2> points = new List<Vector2>();
     public float speed = 2f;
-
     private int currentIndex = 0;
-    private bool movingForward = true;
 
-    private Rigidbody2D rb;
-    private Rigidbody2D carriedPlayerRb;
-
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-    }
-
-    void FixedUpdate()
-    {
-        if (points.Count == 0) return;
-
-        Vector2 current = rb.position;
-        Vector2 target = points[currentIndex];
-        Vector2 next = Vector2.MoveTowards(current, target, speed * Time.fixedDeltaTime);
-
-        rb.MovePosition(next);
-        
-        if (Vector2.Distance(next, target) < 0.01f)
+        if (points.Count == 0)
         {
-            AdvanceWaypoint();
+            Debug.Log("No points");
         }
     }
 
-    private void AdvanceWaypoint()
+    void Update()
     {
-        if (movingForward)
+
+        for (int i = 0; i < points.Count; i++)
         {
-            currentIndex++;
-            if (currentIndex >= points.Count)
+            if (i == currentIndex)
             {
-                currentIndex = points.Count - 2;
-                movingForward = false;
-            }
-        }
-        else
-        {
-            currentIndex--;
-            if (currentIndex < 0)
-            {
-                currentIndex = 1;
-                movingForward = true;
+                Vector2 target = points[i];
+                transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+                if (Vector2.Distance(transform.position, target) < 0.01f)
+                {
+                    currentIndex = (currentIndex + 1) %  points.Count;
+                }
             }
         }
     }
 
-    protected override void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsPlayerLandingOnTop(col))
+        if (collision.gameObject.tag == "Player")
         {
-            carriedPlayerRb = col.rigidbody;
-            carriedPlayerRb.transform.SetParent(transform);
+            collision.transform.SetParent(transform);
         }
     }
 
-    protected void OnCollisionExit2D(Collision2D col)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (col.rigidbody == carriedPlayerRb)
+        if (collision.gameObject.tag == "Player")
         {
-            carriedPlayerRb.transform.SetParent(null);
-            carriedPlayerRb = null;
+            collision.transform.SetParent(null);
         }
-    }
-
-    private bool IsPlayerLandingOnTop(Collision2D col)
-    {
-        if (!col.gameObject.CompareTag("Player")) return false;
-
-        foreach (ContactPoint2D contact in col.contacts)
-        {
-            if (contact.normal.y > 0.5f)
-                return true;
-        }
-        return false;
     }
 }
