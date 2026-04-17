@@ -9,6 +9,8 @@ public class PlayerMoveJumpDash : MonoBehaviour
     public float jumpForce = 10f;
     public float coyoteTime = 0.2f;
 
+    public LayerMask groundLayer;
+
     [Header("Dash")]
     public float dashSpeed = 20f;
     public float dashDuration = 0.15f;
@@ -23,6 +25,8 @@ public class PlayerMoveJumpDash : MonoBehaviour
     private float lastFacingDirection = 1f;
     private Rigidbody2D currentPlatform;
 
+    private float jumpCooldownTimer;
+
     private PlayerWallJumpnSlide wallJump;
 
     private void Start()
@@ -30,10 +34,13 @@ public class PlayerMoveJumpDash : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         wallJump = GetComponent<PlayerWallJumpnSlide>();
     }
+
     private void Update()
     {
         coyoteTimeCounter -= Time.deltaTime;
+        jumpCooldownTimer -= Time.deltaTime;
     }
+
     private void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -52,6 +59,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
             }
         }
     }
+
     private void OnJump(InputValue value)
     {
         if (!value.isPressed || isDashing)
@@ -72,6 +80,8 @@ public class PlayerMoveJumpDash : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             coyoteTimeCounter = 0f;
+
+            jumpCooldownTimer = 0.2f;
         }
     }
 
@@ -92,6 +102,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
             StartCoroutine(PerformDash(dashDir));
         }
     }
+
     private void FixedUpdate()
     {
         bool wallJumpActive = false;
@@ -128,6 +139,7 @@ public class PlayerMoveJumpDash : MonoBehaviour
             }
         }
     }
+
     private IEnumerator PerformDash(Vector2 direction)
     {
         isDashing = true;
@@ -142,16 +154,31 @@ public class PlayerMoveJumpDash : MonoBehaviour
         rb.gravityScale = originalGravity;
         isDashing = false;
     }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("MovingPlatform"))
+
+        bool isGroundLayer = ((1 << collision.gameObject.layer) & groundLayer) != 0;
+        bool isPlatformTag = collision.gameObject.CompareTag("MovingPlatform");
+
+        if (isGroundLayer || isPlatformTag)
         {
 
-            if (rb.linearVelocity.y <= 0.1f)
+            bool isTouchingFloor = false;
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                if (collision.GetContact(i).normal.y > 0.5f)
+                {
+                    isTouchingFloor = true;
+                    break;
+                }
+            }
+
+            if (isTouchingFloor && jumpCooldownTimer <= 0f)
             {
                 isGrounded = true;
 
-                if (collision.gameObject.CompareTag("MovingPlatform"))
+                if (isPlatformTag)
                 {
                     currentPlatform = collision.rigidbody;
                 }
@@ -173,15 +200,18 @@ public class PlayerMoveJumpDash : MonoBehaviour
             }
         }
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("MovingPlatform"))
+        bool isGroundLayer = ((1 << collision.gameObject.layer) & groundLayer) != 0;
+        bool isPlatformTag = collision.gameObject.CompareTag("MovingPlatform");
+
+        if (isGroundLayer || isPlatformTag)
         {
             isGrounded = false;
         }
 
-        // Fjern referencen, når vi hopper af platformen
-        if (collision.gameObject.CompareTag("MovingPlatform"))
+        if (isPlatformTag)
         {
             currentPlatform = null;
         }
