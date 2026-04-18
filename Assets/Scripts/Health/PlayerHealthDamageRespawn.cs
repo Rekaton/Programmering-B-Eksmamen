@@ -7,21 +7,12 @@ public class PlayerHealthDamageRespawn : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
-    [Header("UI Settings")]
-    public Slider healthSlider;
-
     [Header("Respawn Settings")]
     public Transform currentCheckpoint;
 
     void Start()
     {
         currentHealth = maxHealth;
-
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = currentHealth;
-        }
 
         if (currentCheckpoint != null)
         {
@@ -42,10 +33,6 @@ public class PlayerHealthDamageRespawn : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Player hit Current health " + currentHealth);
 
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth;
-        }
 
         if (currentHealth <= 0)
         {
@@ -63,11 +50,6 @@ public class PlayerHealthDamageRespawn : MonoBehaviour
         }
 
         currentHealth = maxHealth;
-
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth;
-        }
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
