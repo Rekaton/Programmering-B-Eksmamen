@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : Platform
+public class MovingPlatform : aPlatform
 {
     public List<Vector2> points = new List<Vector2>();
     public float moveSpeed = 2f;

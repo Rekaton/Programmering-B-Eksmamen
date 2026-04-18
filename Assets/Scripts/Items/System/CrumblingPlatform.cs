@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CrumblingPlatform : Platform
+public class CrumblingPlatform : aPlatform
 {
     public float delay = 1f;
     public float respawnDelay = 3f;

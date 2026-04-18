@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageObstacle : Obstacle
+public class aDamageObstacle : aObstacle
 {
     public int damage = 1;
 

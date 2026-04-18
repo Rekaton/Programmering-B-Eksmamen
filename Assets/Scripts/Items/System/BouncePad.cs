@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BouncePad : Platform
+public class BouncePad : aPlatform
 {
     public float bounceForce = 15f;
 

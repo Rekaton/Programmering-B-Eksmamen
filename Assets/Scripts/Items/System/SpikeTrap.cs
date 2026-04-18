@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpikeTrap : DamageObstacle
+public class SpikeTrap : aDamageObstacle
 {
     public float interval = 2f;
     public float warningTime = 1f;

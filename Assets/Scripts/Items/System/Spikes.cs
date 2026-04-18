@@ -1,3 +1,6 @@
-public class Spikes : DamageObstacle
+using UnityEngine;
+
+public class Spikes : aDamageObstacle
 {
+
 }

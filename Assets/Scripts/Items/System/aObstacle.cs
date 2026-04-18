@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Obstacle : MonoBehaviour
+public abstract class aObstacle : MonoBehaviour
 {
     public virtual void OnPlayerContact(GameObject player) { }
 }

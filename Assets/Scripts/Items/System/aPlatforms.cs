@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Platform : Obstacle
+public class aPlatform : aObstacle
 {
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
